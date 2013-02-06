@@ -45,7 +45,7 @@ static FlurryManager* InstanceofFlurryManager= nil;
 - (int) start:(NSString*)ID {
     switch (mode) {
         case FLURRY_MODE_DEVELOP:
-            NSLog(@"- logevent [%@]", FLURRY_EVENT_START);
+            NSLog(@"[Flurry]- logevent [%@]", FLURRY_EVENT_START);
             return 1;
             
         case FLURRY_MODE_RELEASE:
@@ -62,7 +62,7 @@ static FlurryManager* InstanceofFlurryManager= nil;
 - (int) userID:(NSString*) ID {
     switch (mode) {
         case FLURRY_MODE_DEVELOP:
-            NSLog(@"- userID [%@]",ID);
+            NSLog(@"[Flurry]- userID [%@]",ID);
             return 1;
             
         case FLURRY_MODE_RELEASE:
@@ -78,7 +78,7 @@ static FlurryManager* InstanceofFlurryManager= nil;
 - (int) userAge:(NSInteger) age {
     switch (mode) {
         case FLURRY_MODE_DEVELOP:
-            NSLog(@"- userAge [%d]",age);
+            NSLog(@"[Flurry]- userAge [%d]",age);
             return 1;
             
         case FLURRY_MODE_RELEASE:
@@ -94,7 +94,7 @@ static FlurryManager* InstanceofFlurryManager= nil;
 - (int) userGender:(FLURRY_GENDERS)gender {
     switch (mode) {
         case FLURRY_MODE_DEVELOP:
-            NSLog(@"- userGender [%d]",gender);
+            NSLog(@"[Flurry]- userGender [%d]",gender);
             return 1;
             
         case FLURRY_MODE_RELEASE:
@@ -116,7 +116,7 @@ static FlurryManager* InstanceofFlurryManager= nil;
 - (int) pause {
     switch (mode) {
         case FLURRY_MODE_DEVELOP:
-            NSLog(@"- logevent [%@]", FLURRY_EVENT_PAUSE);
+            NSLog(@"[Flurry]- logevent [%@]", FLURRY_EVENT_PAUSE);
             return 1;
             
         case FLURRY_MODE_RELEASE:
@@ -132,7 +132,7 @@ static FlurryManager* InstanceofFlurryManager= nil;
 - (int) resume {
     switch (mode) {
         case FLURRY_MODE_DEVELOP:
-            NSLog(@"- logevent [%@]", FLURRY_EVENT_RESUME);
+            NSLog(@"[Flurry]- logevent [%@]", FLURRY_EVENT_RESUME);
             return 1;
             
         case FLURRY_MODE_RELEASE:
@@ -148,7 +148,7 @@ static FlurryManager* InstanceofFlurryManager= nil;
 - (int) finish {
     switch (mode) {
         case FLURRY_MODE_DEVELOP:
-            NSLog(@"- logevent [%@]", FLURRY_EVENT_FINISH);
+            NSLog(@"[Flurry]- logevent [%@]", FLURRY_EVENT_FINISH);
             return -1;
             
         case FLURRY_MODE_RELEASE:
@@ -164,7 +164,7 @@ static FlurryManager* InstanceofFlurryManager= nil;
 - (int) event:(NSString*)name {
     switch (mode) {
         case FLURRY_MODE_DEVELOP:
-            NSLog(@"- logevent [%@]", name);
+            NSLog(@"[Flurry]- logevent [%@]", name);
             return 1;
             
         case FLURRY_MODE_RELEASE:
@@ -180,7 +180,7 @@ static FlurryManager* InstanceofFlurryManager= nil;
 - (int) event:(NSString*)name key:(NSString*)event value:(NSString*)msg {
     switch (mode) {
         case FLURRY_MODE_DEVELOP:
-            NSLog(@"- logevent [%@]:(%@=%@)", name, event, msg);
+            NSLog(@"[Flurry]- logevent [%@]:(%@=%@)", name, event, msg);
             return 1;
             
         case FLURRY_MODE_RELEASE:
@@ -198,7 +198,7 @@ static FlurryManager* InstanceofFlurryManager= nil;
 - (int) event:(NSString*)name params:(NSDictionary*)data {
     switch (mode) {
         case FLURRY_MODE_DEVELOP:
-            NSLog(@"- logevent [%@]:(%@)", name, data);
+            NSLog(@"[Flurry]- logevent [%@]:(%@)", name, data);
             return 1;
             
         case FLURRY_MODE_RELEASE:
