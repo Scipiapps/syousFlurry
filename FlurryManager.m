@@ -109,7 +109,23 @@ static FlurryManager* InstanceofFlurryManager= nil;
     }
 }
 
-- (int) events:(NSString*)name key:(NSString*)event value:(NSString*)msg {
+- (int) event:(NSString*)name {
+    switch (mode) {
+        case FLURRY_MODE_DEVELOP:
+            NSLog(@"- logevent [%@]", name);
+            return 1;
+            
+        case FLURRY_MODE_RELEASE:
+            [Flurry logEvent:name timed:YES];
+            return 1;
+            
+        default:
+            return -1;
+            break;
+    }
+}
+
+- (int) event:(NSString*)name key:(NSString*)event value:(NSString*)msg {
     switch (mode) {
         case FLURRY_MODE_DEVELOP:
             NSLog(@"- logevent [%@]:(%@=%@)", name, event, msg);
@@ -127,7 +143,7 @@ static FlurryManager* InstanceofFlurryManager= nil;
     }
 }
 
-- (int) events:(NSString*)name params:(NSDictionary*)data {
+- (int) event:(NSString*)name params:(NSDictionary*)data {
     switch (mode) {
         case FLURRY_MODE_DEVELOP:
             NSLog(@"- logevent [%@]:(%@)", name, data);

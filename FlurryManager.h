@@ -25,7 +25,8 @@ typedef enum {
 - (int) pause;
 - (int) resume;
 - (int) finish;
-- (int) events:(NSString*)name key:(NSString*)event value:(NSString*)msg;
-- (int) events:(NSString*)name params:(NSDictionary*)data;
+- (int) event:(NSString*)name;
+- (int) event:(NSString*)name key:(NSString*)event value:(NSString*)msg;
+- (int) event:(NSString*)name params:(NSDictionary*)data;
 
 @end
