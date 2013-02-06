@@ -109,15 +109,15 @@ static FlurryManager* InstanceofFlurryManager= nil;
     }
 }
 
-- (int) action:(NSString*)action msg:(NSString*)msg {
+- (int) action:(NSString*)action key:(NSString*)event value:(NSString*)msg {
     switch (mode) {
         case FLURRY_MODE_DEVELOP:
-            NSLog(@"- logevent [%@] w/[%@]", action, msg);
+            NSLog(@"- logevent [%@]:(%@=%@)", action, event, msg);
             return 1;
             
         case FLURRY_MODE_RELEASE:
             [Flurry logEvent:action
-              withParameters:[NSDictionary dictionaryWithObjectsAndKeys:action, msg, nil]
+              withParameters:[NSDictionary dictionaryWithObjectsAndKeys:msg, event, nil]
                        timed:YES];
             return 1;
             
