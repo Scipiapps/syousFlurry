@@ -45,14 +45,66 @@ static FlurryManager* InstanceofFlurryManager= nil;
 - (int) start:(NSString*)ID {
     switch (mode) {
         case FLURRY_MODE_DEVELOP:
-            NSLog(@"- user [%@]",[[UIDevice currentDevice] uniqueIdentifier]);
             NSLog(@"- logevent [%@]", FLURRY_EVENT_START);
             return 1;
             
         case FLURRY_MODE_RELEASE:
             [Flurry startSession:ID];
-            [Flurry setUserID:[[UIDevice currentDevice] uniqueIdentifier]];
             [Flurry logEvent:FLURRY_EVENT_START timed:YES];
+            return 1;
+            
+        default:
+            return -1;
+            break;
+    }
+}
+
+- (int) userID:(NSString*) ID {
+    switch (mode) {
+        case FLURRY_MODE_DEVELOP:
+            NSLog(@"- userID [%@]",ID);
+            return 1;
+            
+        case FLURRY_MODE_RELEASE:
+            [Flurry setUserID:ID];
+            return 1;
+            
+        default:
+            return -1;
+            break;
+    }
+}
+
+- (int) userAge:(NSInteger) age {
+    switch (mode) {
+        case FLURRY_MODE_DEVELOP:
+            NSLog(@"- userAge [%d]",age);
+            return 1;
+            
+        case FLURRY_MODE_RELEASE:
+            [Flurry setAge:age];
+            return 1;
+            
+        default:
+            return -1;
+            break;
+    }
+}
+
+- (int) userGender:(FLURRY_GENDERS)gender {
+    switch (mode) {
+        case FLURRY_MODE_DEVELOP:
+            NSLog(@"- userGender [%d]",gender);
+            return 1;
+            
+        case FLURRY_MODE_RELEASE:
+            if (FLURRY_GENDER_M == gender) {
+                [Flurry setGender:@"m"];
+            } else if (FLURRY_GENDER_F == gender){
+                [Flurry setGender:@"f"];
+            } else {
+                assert(0);
+            }
             return 1;
             
         default:
