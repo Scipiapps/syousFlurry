@@ -10,16 +10,28 @@
 #import "Flurry.h"
 
 #define FLURRY_EVENT_START @"START"
-#define FLURRY_EVENT_FINISH @"START"
+#define FLURRY_EVENT_FINISH @"FINISH"
 #define FLURRY_EVENT_PAUSE @"PAUSE"
 #define FLURRY_EVENT_RESUME @"RESUME"
+
+#define FLURRY_LAUNCHED_COUNT @"LAUNCHED_COUNT"
 
 @implementation SyousFlurry
 
 static SyousFlurry* InstanceofFlurryManager= nil;
+static NSUserDefaults* defaults = nil;
 
 + (SyousFlurry*) getSingleton {
     if( nil == InstanceofFlurryManager){
+        NSString* ibundlePath = [[NSBundle mainBundle] bundlePath];
+        NSString* pListPath = [ibundlePath stringByAppendingPathComponent:@"SyousFlurry.plist"];
+        NSDictionary* achievements = [NSDictionary dictionaryWithContentsOfFile:pListPath] ;
+        defaults = [NSUserDefaults standardUserDefaults];
+        [defaults registerDefaults:achievements];
+        [defaults synchronize];
+        NSInteger count = [defaults integerForKey:FLURRY_LAUNCHED_COUNT];
+        [defaults setInteger:++count forKey:FLURRY_LAUNCHED_COUNT];
+        
 		InstanceofFlurryManager = [[SyousFlurry alloc] init];
         InstanceofFlurryManager->mode = FLURRY_MODE_DEVELOP;
 	}
@@ -40,23 +52,6 @@ static SyousFlurry* InstanceofFlurryManager= nil;
     }
     
     return 1;
-}
-
-- (int) start:(NSString*)ID {
-    switch (mode) {
-        case FLURRY_MODE_DEVELOP:
-            NSLog(@"[Flurry]- logevent [%@]", FLURRY_EVENT_START);
-            return 1;
-            
-        case FLURRY_MODE_RELEASE:
-            [Flurry startSession:ID];
-            [Flurry logEvent:FLURRY_EVENT_START timed:YES];
-            return 1;
-            
-        default:
-            return -1;
-            break;
-    }
 }
 
 - (int) userID:(NSString*) ID {
@@ -113,6 +108,23 @@ static SyousFlurry* InstanceofFlurryManager= nil;
     }
 }
 
+- (int) start:(NSString*)ID {
+    switch (mode) {
+        case FLURRY_MODE_DEVELOP:
+            NSLog(@"[Flurry]- logevent [%@]", FLURRY_EVENT_START);
+            return 1;
+            
+        case FLURRY_MODE_RELEASE:
+            [Flurry startSession:ID];
+            [Flurry logEvent:FLURRY_EVENT_START timed:YES];
+            return 1;
+            
+        default:
+            return -1;
+            break;
+    }
+}
+
 - (int) pause {
     switch (mode) {
         case FLURRY_MODE_DEVELOP:
@@ -146,13 +158,19 @@ static SyousFlurry* InstanceofFlurryManager= nil;
 }
 
 - (int) finish {
+    NSMutableDictionary* p = [[NSMutableDictionary alloc] init];
+    [p setObject:[NSString stringWithFormat:@"%d",[defaults integerForKey:FLURRY_LAUNCHED_COUNT]]
+          forKey:@"launched"];
+    
     switch (mode) {
         case FLURRY_MODE_DEVELOP:
-            NSLog(@"[Flurry]- logevent [%@]", FLURRY_EVENT_FINISH);
+            NSLog(@"[Flurry]- logevent [%@] [%@]", FLURRY_EVENT_FINISH,p);
             return -1;
             
         case FLURRY_MODE_RELEASE:
-            [Flurry endTimedEvent:FLURRY_EVENT_FINISH withParameters:nil];
+            
+            [Flurry endTimedEvent:FLURRY_EVENT_FINISH
+                   withParameters:p];
             return 1;
             
         default:
