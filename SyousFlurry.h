@@ -1,6 +1,5 @@
 //
-//  FlurryManager.h
-//  BeautyNow
+//  SyousFlurry.h
 //
 //  Created by zedoul on 12/18/12.
 //  Copyright (c) 2012 scipi. All rights reserved.
@@ -22,11 +21,11 @@ typedef enum {
     FLURRY_GENDER_MAX
 } FLURRY_GENDERS;
 
-@interface FlurryManager : NSObject {
+@interface SyousFlurry : NSObject {
     FLURRY_MODES mode;
 }
 
-+ (FlurryManager*) getSingleton;
++ (SyousFlurry*) getSingleton;
 - (int) setMode:(FLURRY_MODES) mode;
 - (int) start:(NSString*)ID;
 - (int) userID:(NSString*)ID;

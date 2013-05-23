@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 scipi. All rights reserved.
 //
 
-#import "FlurryManager.h"
+#import "SyousFlurry.h"
 #import "Flurry.h"
 
 #define FLURRY_EVENT_START @"START"
@@ -14,14 +14,14 @@
 #define FLURRY_EVENT_PAUSE @"PAUSE"
 #define FLURRY_EVENT_RESUME @"RESUME"
 
-@implementation FlurryManager
+@implementation SyousFlurry
 
-static FlurryManager* InstanceofFlurryManager= nil;
+static SyousFlurry* InstanceofFlurryManager= nil;
 
-+ (FlurryManager*) getSingleton {
++ (SyousFlurry*) getSingleton {
     if( nil == InstanceofFlurryManager){
-		InstanceofFlurryManager = [[FlurryManager alloc] init];
-        InstanceofFlurryManager->mode = FLURRY_MODE_NULL;
+		InstanceofFlurryManager = [[SyousFlurry alloc] init];
+        InstanceofFlurryManager->mode = FLURRY_MODE_DEVELOP;
 	}
 	return InstanceofFlurryManager;
 }
