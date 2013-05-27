@@ -45,6 +45,7 @@ static NSUserDefaults* defaults = nil;
     
     switch (self->mode) {
         case FLURRY_MODE_NULL:
+        case FLURRY_MODE_DEVELOP:
             self->mode = mode_;
             break;
         default:
